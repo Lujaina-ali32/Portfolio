@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" href="style.css" />
+<title>Lujaina — Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+
+
+<style>
+html {
+  scroll-behavior: smooth;
+}
+</style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav-wrap">
+    <nav class="nav container">
+      <div class="brand">
+        <img src="./bg-removebg-preview.png" alt="Lujaina" class="brand-avatar">
+        <div class="brand-text">
+          <span class="brand-name">Lujaina</span>
+          <small class="brand-role">Frontend Developer</small>
+        </div>
+      </div>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certificates">Certificates</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="themeToggle" class="btn-icon" aria-label="Toggle theme">🌙</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section id="hero" class="hero section container">
+      <div class="hero-left reveal">
+        <h1 class="hero-title">Hi — I’m <span class="accent">Lujaina</span></h1>
+        <div class="hero-sub">
+          <div class="typing" aria-live="polite"></div>
+          <p class="muted">Intern at <strong>CodeAlpha</strong> & <strong>Internee.pk</strong> — I build modern, responsive, animated front-ends.</p>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn primary ripple" href="#projects">View Projects</a>
+          <a class="btn outline ripple" href="#contact">Hire / Contact</a>
+        </div>
+
+        <ul class="hero-stats">
+          <li><strong>3+</strong><span>Real Projects</span></li>
+          <li><strong>2</strong><span>Active Internships</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-right reveal">
+        <div class="card glass hero-card tilt">
+          <img class="profile" src="./bg-removebg-preview.png" alt="Profile photo">
+          <div class="card-body">
+            <h3>Hello there 👋</h3>
+            <p>I love turning ideas into responsive websites with smooth interactions and delightful UI.</p>
+            <div class="mini-tags">
+              <span>CodeAlpha (Intern)</span>
+              <span>Internee.pk (Intern)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section container reveal">
+      <h2>About Me</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I’m a frontend developer focused on crafting clean, accessible and responsive user interfaces.
+            Currently interning at <strong>CodeAlpha</strong> and <strong>Internee.pk</strong>, working on production features,
+            UI polish, and performance improvements.
+          </p>
+          <ul class="about-list">
+            <li>📌 Frontend development (HTML/CSS/JS)</li>
+            <li>⚡ Animations & interactions</li>
+            <li>🎨 UI/UX basics & responsive layouts</li>
+            <li>🔧 Git, deployments & collaborating in teams</li>
+          </ul>
+        </div>
+
+        <div class="about-cards">
+          <div class="info-card tilt reveal">
+            <h4>Education</h4>
+            <p>Computer Science Student — focused on Web Technologies</p>
+          </div>
+          <div class="info-card tilt reveal">
+            <h4>Internships</h4>
+            <p>CodeAlpha — Frontend Intern<br>Internee.pk — Frontend Intern</p>
+          </div>
+          <div class="info-card tilt reveal">
+            <h4>Passion</h4>
+            <p>Design systems, micro-interactions & performance</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section container reveal">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill">
+          <label>HTML</label>
+          <div class="progress" data-value="95"><span></span></div>
+        </div>
+        <div class="skill">
+          <label>CSS / SCSS</label>
+          <div class="progress" data-value="92"><span></span></div>
+        </div>
+        <div class="skill">
+          <label>JavaScript</label>
+          <div class="progress" data-value="82"><span></span></div>
+        </div>
+        <div class="skill">
+          <label>React (basics)</label>
+          <div class="progress" data-value="65"><span></span></div>
+        </div>
+        <div class="skill">
+          <label>Git & GitHub</label>
+          <div class="progress" data-value="75"><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section container reveal">
+      <h2>Projects</h2>
+      <div class="grid projects-grid">
+    
+        <article class="project-card glass tilt" 
+                 data-title="Newspaper Clone" 
+                 data-desc="a modern, fully responsive news website designed to deliver an optimal user experience. Technologies Used:HTML5 • CSS3 • JavaScrip"
+                 data-tech="HTML • CSS • JS"
+                 data-live="https://lujaina-ali32.github.io/newspaper/"
+                 data-github="https://github.com/Lujaina-ali32/newspaper">
+          <div class="project-thumb">📰</div>
+          <h3>Newspaper Clone</h3>
+          <p class="muted">fully responsive news website designed</p>
+        </article>
+
+        <article class="project-card glass tilt" 
+                 data-title="QR-Code-Generator" 
+                 data-desc="This tool empowers users to generate secure and unique passwords within seconds.."
+                 data-tech="HTML • CSS • JS • API"
+                 data-live="https://lujaina-ali32.github.io/QR-Code-Generator/"
+                 data-github="https://github.com/Lujaina-ali32/QR-Code-Generator">
+          <div class="project-thumb">📦</div>
+          <h3>QR-Code-Generator</h3>
+          <p class="muted">API integration</p>
+        </article>
+
+        <article class="project-card glass tilt" 
+                 data-title="Strong-Password-Generator" 
+                 data-desc="A modern travel landing page with hero animations, responsive grid and contact form."
+                 data-tech="HTML • CSS • JS"
+                 data-live="https://lujaina-ali32.github.io/Strong-Password-Generator/"
+                 data-github="https://github.com/Lujaina-ali32/Strong-Password-Generator">
+          <div class="project-thumb">🔐</div>
+          <h3>Strong-Password-Generator</h3>
+          <p class="muted">Strong & customizable password generation</p>
+        </article>
+
+        <article class="project-card glass tilt" 
+                 data-title="Stop-Watch" 
+                 data-desc=" I personally designed the entire layout with soft pastel colors, animated transitions, hover effects, and mobile responsiveness"
+                 data-tech="HTML • CSS • JS"
+                 data-live="https://lujaina-ali32.github.io/Stop-Watch/"
+                 data-github="https://github.com/Lujaina-ali32/Stop-Watch">
+          <div class="project-thumb">⌚</div>
+          <h3>Stop-Watch</h3>
+          <p class="muted">a fully responsive, animated Stopwatch.</p>
+        </article>
+
+         <article class="project-card glass tilt" 
+                 data-title="Counter-App" 
+                 data-desc=" This project, built using HTML, CSS, and JavaScript, is focused on interactivity, clean design, and responsiveness."
+                 data-tech="HTML • CSS • JS"
+                 data-live="https://lujaina-ali32.github.io/Counter-App/"
+                 data-github="https://github.com/Lujaina-ali32/Counter-App">
+          <div class="project-thumb">🔄️</div>
+          <h3>Counter-App</h3>
+          <p class="muted">Increment, decrement & reset the counter with ease</p>
+        </article>
+
+        <article class="project-card glass tilt" 
+                 data-title="Travel-Website" 
+                 data-desc="Elegant and responsive Navigation Bar for intuitive user flow, Engaging Travel Destination Cards with a visually rich layout."
+                 data-tech="HTML • CSS"
+                 data-live="https://lujaina-ali32.github.io/Travel-Website/"
+                 data-github="https://github.com/Lujaina-ali32/Travel-Website">
+          <div class="project-thumb">✈️</div>
+          <h3>Travel-Website</h3>
+          <p class="muted">Fully Responsive Travel Website</p>
+        </article>
+
+        <article class="project-card glass tilt" 
+                 data-title="Landing Page" 
+                 data-desc="build a UL clone using only HTML and CSS."
+                 data-tech="HTML • CSS"
+                 data-live="https://lujaina-ali32.github.io/SMIT-HACKATHOUN/"
+                 data-github="https://github.com/Lujaina-ali32/SMIT-HACKATHOUN">
+          <div class="project-thumb">📄</div>
+          <h3>Landing Page</h3>
+          <p class="muted">Fully Responsive Design </p>
+        </article>
+
+         <article class="project-card glass tilt" 
+                 data-title="ID-Card-Generator" 
+                 data-desc=" Fill in your details (Name, Roll no, Gender & Course), Get an instant professional-looking ID card ,Try out different courses (Web Dev, AI, Cybersecurity & more) ,Enjoy a clean & responsive design."
+                 data-tech="HTML • CSS • JS"
+                 data-live="https://lujaina-ali32.github.io/ID-Card-Generator/"
+                 data-github="https://github.com/Lujaina-ali32/ID-Card-Generator">
+          <div class="project-thumb">🪪</div>
+          <h3>ID-Card-Generator</h3>
+          <p class="muted">A simple yet fun tool where you can generate your own ID card in seconds </p>
+        </article>
+
+         <article class="project-card glass tilt" 
+                 data-title="Random-Quote-Generator" 
+                 data-desc="This interactive tool is designed using HTML, CSS, and JavaScript, focusing on creativity, usability, and a clean interface."
+                 data-tech="HTML • CSS • JS"
+                 data-live="https://lujaina-ali32.github.io/Random-Quote-Generator/"
+                 data-github="https://github.com/Lujaina-ali32/Random-Quote-Generator">
+          <div class="project-thumb">💭</div>
+          <h3>Random-Quote-Generatorr</h3>
+          <p class="muted">Generates a fresh, inspiring quote every time you click </p>
+        </article>
+
+        <article class="project-card glass tilt" 
+                 data-title="Digital-Clock" 
+                 data-desc=" This simple yet effective web app displays the current time with second-by-second updates, using pure JavaScript, without any external libraries or APIs."
+                 data-tech="HTML • CSS • JS"
+                 data-live="https://lujaina-ali32.github.io/Digital-Clock/"
+                 data-github="https://github.com/Lujaina-ali32/Digital-Clockr">
+          <div class="project-thumb">⌚</div>
+          <h3>Digital-Clock</h3>
+          <p class="muted">a fully responsive real-time digital clock! </p>
+        </article>
+
+         <article class="project-card glass tilt" 
+                 data-title="Vowel-Checker" 
+                 data-desc="Takes any word or sentence input ,Counts the number of vowels (both upper & lower case), Shows user-friendly error message"
+                 data-tech="HTML • CSS • JS"
+                 data-live="https://lujaina-ali32.github.io/Vowel-Checker/"
+                 data-github="https://github.com/Lujaina-ali32/Vowel-Checker">
+          <div class="project-thumb">✅</div>
+          <h3>Vowel-Checker</h3>
+          <p class="muted"> a clean, minimal Vowel Checke </p>
+        </article>
+
+         <article class="project-card glass tilt" 
+                 data-title="Rock-Paper-Scissors" 
+                 data-desc="Modern gradient UI & hover animations, Dynamic JS logic with DOM manipulation, Real-time scoring with user feedback"
+                 data-tech="HTML • CSS • JS"
+                 data-live="https://lujaina-ali32.github.io/Rock-Paper-Scissors/"
+                 data-github="https://github.com/Lujaina-ali32/Rock-Paper-Scissors">
+          <div class="project-thumb">👊</div>
+          <h3>Rock-Paper-Scissors</h3>
+          <p class="muted"> a fully responsive, animated, and browser-based Rock Paper Scissors game</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section id="certificates" class="section container reveal">
+      <h2>Certificates</h2>
+      <div class="grid certs-grid">
+        <figure class="certificate-card glass tilt" data-img="https://via.placeholder.com/1000x700?text=Certificate+1">
+          <img src="./certificate.jpg" alt="Certificate 1">
+          <figcaption> FemHack 2025 (Hackathon), organized by the Saylani Mass Training Programme</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section container reveal">
+      <h2>Contact</h2>
+      <div class="contact-grid">
+        <form class="contact-form" onsubmit="return false;">
+          <label><input placeholder="Your name" required></label>
+          <label><input type="email" placeholder="Your email" required></label>
+          <label><textarea placeholder="Your message" rows="5" required></textarea></label>
+          <div class="form-actions">
+            <button class="btn primary ripple">Send Message</button>
+            <button type="button" class="btn outline ripple" onclick="scrollToProjects()">See Projects</button>
+          </div>
+          <div class="contact-note muted">I’ll reply as soon as possible — demo form (no server connected).</div>
+        </form>
+
+        <aside class="contact-side">
+          <div class="contact-card glass">
+            <h4>Work With Me</h4>
+            <p class="muted">Available for internships, freelancing & collaboration.</p>
+            <div class="socials">
+              <a href="https://github.com/Lujaina-ali32" aria-label="GitHub">🐙 GitHub</a>
+              <a href="https://www.linkedin.com/in/lujaina-ali-962231307?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn">💼 LinkedIn</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+<!-- PROJECT MODAL -->
+<div id="projectModal" class="modal" aria-hidden="true">
+  <div class="modal-panel glass">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <h3 id="modalTitle"></h3>
+    <p id="modalTech" class="muted"></p>
+    <p id="modalDesc"></p>
+    <div class="modal-actions">
+      <a id="modalLive" class="btn primary ripple" target="_blank" rel="noopener">Live Demo</a>
+      <a id="modalGit" class="btn outline ripple" target="_blank" rel="noopener">View Code</a>
+    </div>
+  </div>
+</div>
+
+
+<div id="lightbox" class="modal" aria-hidden="true">
+  <div class="modal-panel">
+    <button class="modal-close">&times;</button>
+    <img id="lightboxImg" src="" alt="certificate" style="max-width:100%;border-radius:8px;">
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <small>© 2025 Lujaina • Built with ❤ </small>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
