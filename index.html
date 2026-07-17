@@ -1,410 +1,1622 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="stylesheet" href="style.css" />
-<title>Lujaina — Portfolio</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lujaina | Elite MERN Developer</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
-html {
-  scroll-behavior: smooth;
+body{
+  margin:0;
+  background:#05010a;
+  color:white;
+  overflow-x:hidden;
+  font-family:sans-serif;
+}
+
+/* BLOBS */
+.blob{
+  position:fixed;
+  width:320px;height:320px;
+  background:#a855f7;
+  filter:blur(120px);
+  opacity:0.15;
+  z-index:-1;
+}
+.blob1{top:10%;left:10%}
+.blob2{bottom:10%;right:10%}
+
+/* NAV */
+nav{
+  position:fixed;
+  top:0;left:0;width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:15px 40px;
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  z-index:9999;
+}
+nav a{margin:0 10px;transition:0.3s}
+nav a:hover{color:#a855f7;transform:scale(1.1)}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.hero-img{
+  width:170px;
+  height:170px;
+  border-radius:50%;
+  border:3px solid #a855f7;
+  box-shadow:0 0 50px #a855f7;
+  object-fit:cover;
+}
+
+/* SECTIONS */
+section{
+  padding:100px 40px;
+  opacity:0;
+  transform:translateY(60px);
+}
+
+/* GLASS */
+.glass{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:18px;
+  transition:0.4s;
+}
+.glass:hover{
+  transform:translateY(-10px) scale(1.03);
+  box-shadow:0 0 40px #a855f7;
+}
+
+/* BUTTON */
+.btn{
+  background:#a855f7;
+  padding:10px 20px;
+  border-radius:30px;
+  box-shadow:0 0 20px #a855f7;
+  transition:0.3s;
+}
+.btn:hover{transform:scale(1.1)}
+
+/* SKILLS */
+.bar{background:#222;border-radius:20px;height:12px;overflow:hidden}
+.fill{height:12px;background:#a855f7}
+
+/* GRID */
+.grid2{display:flex;gap:30px;flex-wrap:wrap;justify-content:center;align-items:center}
+
+/* FAQ */
+.faq{
+  cursor:pointer;
+  padding:15px;
+  margin:10px 0;
+}
+
+/* STAR BACKGROUND (UNCHANGED) */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+
+/*CERTIFICATE*/
+/* CERT SLIDER */
+.cert-wrapper{
+  overflow:hidden;
+  position:relative;
+}
+
+.cert-track{
+  display:flex;
+  gap:20px;
+  transition:transform 0.6s ease;
+  width:max-content;
+  padding-bottom:20px;
+}
+
+/* FLIP CARD */
+.flip-card{
+  width:260px;
+  height:200px;
+  perspective:1000px;
+  flex-shrink:0;
+}
+
+.flip-inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  transition:0.8s;
+  transform-style:preserve-3d;
+}
+
+.flip-card:hover .flip-inner{
+  transform:rotateY(180deg);
+}
+
+.flip-front,.flip-back{
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  border-radius:16px;
+  overflow:hidden;
+}
+
+.flip-front img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.flip-back{
+  background:#0f0a1a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  transform:rotateY(180deg);
+  border:1px solid #a855f7;
+}
+
+/* NAV BUTTONS */
+.cert-btn{
+  position:absolute;
+  top:45%;
+  transform:translateY(-50%);
+  background:#a855f7;
+  border:none;
+  padding:10px 15px;
+  border-radius:50%;
+  cursor:pointer;
+  z-index:10;
+}
+
+.left{left:0}
+.right{right:0}
+
+
+/* project flip */
+.project-card{
+  perspective:1200px;
+}
+
+.card-inner{
+  position:relative;
+  width:100%;
+  height:360px;
+  transition:transform 0.8s;
+  transform-style:preserve-3d;
+}
+
+.project-card:hover .card-inner{
+  transform:rotateY(180deg);
+}
+
+.card-front,
+.card-back{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  border-radius:20px;
+}
+
+.card-back{
+  transform:rotateY(180deg);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+/* TAG */
+.tag{
+  font-size:12px;
+  background:rgba(168,85,247,0.2);
+  padding:4px 8px;
+  border-radius:8px;
+}
+
+/* BUTTON reuse */
+.btn{
+  background:#a855f7;
+  padding:8px 14px;
+  border-radius:20px;
+  box-shadow:0 0 15px #a855f7;
+  transition:0.3s;
+  color:white;
+  text-decoration:none;
+}
+
+.btn:hover{
+  transform:scale(1.1);
+}
+section{
+  opacity:0;
+  transform: translateY(80px);
+  transition: all 0.8s ease;
+}
+
+.reveal{
+  opacity:1 !important;
+  transform: translateY(0px) !important;
+}
+
+/* smooth scrolling */
+html{
+  scroll-behavior:smooth;
+}
+#progressBar{
+  position:fixed;
+  top:0;
+  left:0;
+  height:3px;
+  width:0%;
+  background:linear-gradient(to right,#a855f7,#ec4899);
+  z-index:99999;
 }
 </style>
 </head>
-<body class="dark">
-  <!-- NAV -->
-  <header class="nav-wrap">
-    <nav class="nav container">
-      <div class="brand">
-        <img src="./bg-removebg-preview.png" alt="Lujaina" class="brand-avatar">
-        <div class="brand-text">
-          <span class="brand-name">Lujaina</span>
-          <small class="brand-role">Frontend Developer</small>
-        </div>
+
+<body>
+<div id="progressBar"></div>
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<canvas id="bg"></canvas>
+
+<!-- NAV -->
+<!-- NAVBAR -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-black/30 backdrop-blur-xl border-b border-white/10  will-change-transform">
+
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3">
+
+    <!-- LOGO -->
+    <a href="#hero"
+       class="text-xl font-bold text-purple-400 tracking-wide hover:scale-105 transition">
+      Lujaina Ali
+    </a>
+
+    <!-- DESKTOP MENU -->
+    <div class="hidden md:flex items-center gap-8 text-sm text-gray-300">
+
+      <a href="#hero" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#cert" class="nav-link">Certificates</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="#contact" class="nav-link">Contact</a>
+
+    </div>
+
+    <!-- CTA -->
+    <a href="#contact"
+       class="hidden md:flex items-center gap-2 bg-purple-500 px-4 py-2 rounded-full
+              text-sm font-medium shadow-lg hover:shadow-purple-500/40
+              hover:scale-105 transition">
+      Hire Me 🚀
+    </a>
+
+    <!-- MOBILE BUTTON -->
+    <button id="menuBtn"
+      class="md:hidden text-purple-400 text-2xl hover:scale-110 transition">
+      ☰
+    </button>
+
+  </div>
+</nav>
+
+<!-- BACKDROP -->
+<div id="backdrop"
+     class="fixed inset-0 bg-black/60 hidden z-40"></div>
+
+<!-- MOBILE DRAWER -->
+<div id="mobileMenu"
+     class="fixed top-0 right-0 h-full w-72 bg-[#0b0614]/95 backdrop-blur-2xl
+            border-l border-white/10 shadow-2xl z-50
+            transform translate-x-full transition-transform duration-300">
+
+  <div class="p-6 flex flex-col gap-5 text-gray-300">
+
+    <!-- CLOSE -->
+    <div class="flex justify-between items-center">
+      <h3 class="text-purple-400 font-bold">Menu</h3>
+      <button id="closeBtn"
+        class="text-white text-xl hover:rotate-90 transition">
+        ✕
+      </button>
+    </div>
+
+    <a href="#hero" class="mobile-link">Home</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#skills" class="mobile-link">Skills</a>
+    <a href="#projects" class="mobile-link">Projects</a>
+    <a href="#cert" class="mobile-link">Certificates</a>
+    <a href="#faq" class="mobile-link">FAQ</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+
+    <a href="#contact"
+       class="mt-6 bg-purple-500 text-center py-3 rounded-xl font-medium
+              hover:scale-105 transition">
+      Hire Me 🚀
+    </a>
+
+  </div>
+</div>
+
+<!-- FIX HERO CUT -->
+<style>
+body{
+  padding-top: 72px;
+}
+
+/* DESKTOP LINKS */
+.nav-link{
+  position: relative;
+  transition: 0.3s;
+  padding: 6px 0;
+}
+
+/* underline */
+.nav-link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-5px;
+  width:0%;
+  height:2px;
+  background:#a855f7;
+  transition:0.3s;
+}
+
+/* hover effects */
+.nav-link:hover{
+  color:#a855f7;
+  transform: translateY(-2px);
+}
+
+.nav-link:hover::after{
+  width:100%;
+}
+
+/* MOBILE LINKS */
+.mobile-link{
+  padding:12px;
+  border-radius:10px;
+  transition:0.3s;
+  background:transparent;
+}
+
+.mobile-link:hover{
+  background:rgba(168,85,247,0.12);
+  transform: translateX(8px);
+  color:#a855f7;
+}
+</style>
+
+<!-- SCRIPT -->
+<script>
+const menu = document.getElementById("mobileMenu");
+const btn = document.getElementById("menuBtn");
+const closeBtn = document.getElementById("closeBtn");
+const backdrop = document.getElementById("backdrop");
+
+function openMenu(){
+  menu.classList.remove("translate-x-full");
+  backdrop.classList.remove("hidden");
+}
+
+function closeMenu(){
+  menu.classList.add("translate-x-full");
+  backdrop.classList.add("hidden");
+}
+
+btn.onclick = openMenu;
+closeBtn.onclick = closeMenu;
+backdrop.onclick = closeMenu;
+
+document.querySelectorAll(".mobile-link").forEach(link=>{
+  link.onclick = closeMenu;
+});
+</script>
+
+<!-- HERO (CLIENT IMPACT TEXT + IMAGE) -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center text-center px-6 overflow-hidden bg-[#05010a] text-white will-change-transform">
+
+  <!-- 🌌 ANIMATED BACKGROUND GLOW -->
+  <div class="absolute w-[500px] h-[500px] bg-purple-600 blur-[180px] opacity-20 top-0 left-0 animate-pulse"></div>
+  <div class="absolute w-[500px] h-[500px] bg-pink-500 blur-[180px] opacity-20 bottom-0 right-0 animate-pulse"></div>
+
+  <!-- ✨ FLOATING DOTS -->
+  <div class="absolute top-20 left-20 w-3 h-3 bg-purple-400 rounded-full animate-bounce"></div>
+  <div class="absolute bottom-24 right-24 w-2 h-2 bg-pink-400 rounded-full animate-ping"></div>
+
+  <!-- MAIN CONTENT -->
+  <div class="relative z-10 max-w-3xl">
+
+    <!-- PROFILE IMAGE -->
+    <div class="flex justify-center mb-6">
+      <div class="relative group">
+
+        <div class="absolute inset-0 bg-purple-500 blur-3xl opacity-40 rounded-full 
+                    group-hover:opacity-70 transition duration-500"></div>
+
+        <img src="./Gemini_Generated_Image_5oui0g5oui0g5oui.png"
+          class="w-40 h-40 md:w-52 md:h-52 rounded-full object-cover border-4 border-purple-500
+                 shadow-[0_0_50px_#a855f7]
+                 transform group-hover:scale-110 group-hover:rotate-2
+                 transition duration-500"/>
       </div>
+    </div>
 
-      <ul class="nav-links" role="list">
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#certificates">Certificates</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+    <!-- STATUS -->
+    <div class="inline-block px-4 py-1 mb-4 text-sm rounded-full bg-green-500/20 text-green-300 animate-pulse">
+      ● Available for Freelance Work
+    </div>
 
-    
-    </nav>
-  </header>
+    <!-- MAIN TITLE -->
+    <h1 class="text-3xl md:text-5xl font-bold leading-tight">
+      Crafting <span class="text-purple-400">Modern</span> Web Experiences
+    </h1>
 
-  <!-- HERO -->
-  <main>
-    <section id="hero" class="hero section container">
-      <div class="hero-left reveal">
-        <h1 class="hero-title">Hi — I’m <span class="accent">Lujaina</span></h1>
-        <div class="hero-sub">
-          <div class="typing" aria-live="polite"></div>
-          <p class="muted">
-Frontend Developer — <strong>Internship Completed @ Internee.pk</strong><br>
-I help businesses and startups build <strong>fast, responsive & visually engaging websites</strong>
-that convert users into customers.
-.</p>
-        </div>
+    <!-- SUB TEXT -->
+    <p class="mt-4 text-gray-300 max-w-xl mx-auto leading-relaxed hover:text-white transition">
+      I build high-performance <span class="text-purple-400">MERN applications</span>,
+      scalable systems, and UI experiences that feel like <span class="text-white">premium digital products</span>.
+    </p>
 
-        <div class="hero-actions">
-          <a class="btn primary ripple" href="#projects">View Projects</a>
-          <a class="btn outline ripple" href="#contact">Hire / Contact</a>
-        </div>
+    <!-- SKILLS TAGS -->
+    <div class="flex flex-wrap justify-center gap-2 mt-6">
 
-       <ul class="hero-stats">
-  <li><strong>12+</strong><span>Projects</span></li>
-  <li><strong>1</strong><span>Internship Completed</span></li>
-</ul>
+      <span class="bg-purple-500/20 px-3 py-1 rounded-full text-sm hover:scale-110 transition">⚡ Fast</span>
+      <span class="bg-purple-500/20 px-3 py-1 rounded-full text-sm hover:scale-110 transition">🎨 UI/UX</span>
+      <span class="bg-purple-500/20 px-3 py-1 rounded-full text-sm hover:scale-110 transition">🚀 Scalable</span>
+      <span class="bg-purple-500/20 px-3 py-1 rounded-full text-sm hover:scale-110 transition">💻 MERN</span>
 
-      </div>
+    </div>
 
-      <div class="hero-right reveal">
-        <div class="card glass hero-card tilt">
-          <img class="profile" src="./bg-removebg-preview.png" alt="Profile photo">
-          <div class="card-body">
-            <h3>Hello there 👋</h3>
-            <p>I love turning ideas into responsive websites with smooth interactions and delightful UI.</p>
-            <div class="mini-tags">
-              <span>Internee.pk (Intern)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- CTA BUTTONS -->
+    <div class="mt-8 flex flex-col md:flex-row justify-center gap-4">
 
-    <ul class="value-list">
-  <li>✅ Pixel-perfect responsive websites (mobile-first)</li>
-  <li>✅ Clean & maintainable HTML, CSS & JavaScript</li>
-  <li>✅ Smooth animations & interactive UI</li>
-  <li>✅ Fast loading & SEO-friendly layouts</li>
-</ul>
+      <a href="#contact"
+         class="bg-purple-500 px-6 py-3 rounded-full shadow-lg
+                hover:scale-110 hover:shadow-purple-500/60
+                transition duration-300">
+        🚀 Hire Me
+      </a>
 
+      <a href="./cv.html" target="_blank"
+         class="border border-purple-500 px-6 py-3 rounded-full
+                hover:bg-purple-500/20 hover:scale-105
+                transition duration-300">
+        📄 Download CV
+      </a>
 
-    <!-- ABOUT -->
-    <section id="about" class="section container reveal">
-      <h2>About Me</h2>
-      <div class="about-grid">
-        <div class="about-text">
-          <p>
-I’m a frontend developer focused on crafting clean, accessible and responsive user interfaces.
-I have successfully completed my internship at <strong>Internee.pk</strong>, where I worked on
-real-world frontend features, UI polish, animations, and performance improvements.
-</p>
+      <a href="https://github.com/Lujaina-ali32" target="_blank"
+         class="px-6 py-3 rounded-full bg-white/5 border border-white/10
+                hover:bg-white/10 hover:scale-105 transition">
+        💻 GitHub
+      </a>
 
-          <ul class="about-list">
-            <li>📌 Frontend development (HTML/CSS/JS)</li>
-            <li>⚡ Animations & interactions</li>
-            <li>🎨 UI/UX basics & responsive layouts</li>
-            <li>🔧 Git, deployments & collaborating in teams</li>
-          </ul>
-        </div>
+    </div>
 
-        <div class="about-cards">
-          <div class="info-card tilt reveal">
-            <h4>Education</h4>
-            <p>Computer Science Student — focused on Web Technologies</p>
-          </div>
-          <div class="info-card tilt reveal">
-            <h4>Internships</h4>
-            <p>Internee.pk — Frontend Intern</p>
-          </div>
-          <div class="info-card tilt reveal">
-            <h4>Passion</h4>
-            <p>Design systems, micro-interactions & performance</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- SOCIAL LINKS -->
+    <div class="flex justify-center gap-6 mt-8 text-gray-400">
 
-    <!-- choose me  -->
-     <section class="section container reveal">
-  <h2>Why Choose Me?</h2>
-  <div class="why-grid">
-<div class="glass card" data-icon="⚡">Fast & clean code</div>
-<div class="glass card" data-icon="📱">100% mobile responsive</div>
-<div class="glass card" data-icon="🎨">Eye-catching UI</div>
-<div class="glass card" data-icon="🤝">Clear communication</div>
+      <a href="https://www.linkedin.com/in/lujaina-ali-962231307?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank"
+         class="hover:text-purple-400 hover:scale-125 transition">LinkedIn</a>
+
+      <a href="https://github.com/Lujaina-ali32" target="_blank"
+         class="hover:text-purple-400 hover:scale-125 transition">GitHub</a>
+
+      <a href="lujainaali10@gmail.com"
+         class="hover:text-purple-400 hover:scale-125 transition">Email</a>
+
+    </div>
+
+    <!-- SCROLL INDICATOR -->
+    <div class="mt-10 text-gray-400 animate-bounce text-sm">
+      ↓ Scroll to explore
+    </div>
 
   </div>
 </section>
 
+<!-- ABOUT (WITH IMAGE) -->
+<section id="about" class="py-24 px-6 bg-[#05010a] text-white will-change-transform">
 
-    <!-- SKILLS -->
-<div class="skills-grid">
-  <div class="skill"><label>HTML5</label><div class="progress" data-value="95"><span></span></div></div>
-  <div class="skill"><label>CSS3 / SCSS</label><div class="progress" data-value="92"><span></span></div></div>
-  <div class="skill"><label>JavaScript (ES6+)</label><div class="progress" data-value="88"><span></span></div></div>
-  <div class="skill"><label>React.js</label><div class="progress" data-value="80"><span></span></div></div>
-  <div class="skill"><label>Tailwind CSS</label><div class="progress" data-value="85"><span></span></div></div>
-  <div class="skill"><label>Bootstrap</label><div class="progress" data-value="82"><span></span></div></div>
-  <div class="skill"><label>Firebase Authentication</label><div class="progress" data-value="75"><span></span></div></div>
-  <div class="skill"><label>Firestore Database</label><div class="progress" data-value="72"><span></span></div></div>
-</div>
+  <h2 class="text-center text-4xl font-bold text-purple-400 mb-14">
+    👨‍💻 About Me
+  </h2>
 
+  <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto items-center">
 
-    <!-- PROJECTS -->
-    <section id="projects" class="section container reveal">
-      <h2>Projects</h2>
-      <div class="grid projects-grid">
+    <!-- IMAGE SIDE -->
+    <div class="flex justify-center">
+      <div class="relative group">
 
+        <!-- glow background -->
+        <div class="absolute inset-0 bg-purple-500 blur-3xl opacity-30 rounded-3xl 
+                    group-hover:opacity-60 transition duration-500"></div>
 
-        <article class="project-card glass tilt" 
-                 data-title="Real-Time Chat App Powered by Firebase " 
-                 data-desc="This project truly helped me understand how real-time databases, authentication, and responsive UI come together to create seamless user experiences"
-                 data-tech="HTML • CSS • JavaScript • Firebase (Auth + Realtime DB) "
-                 data-live="https://lujaina-ali32.github.io/Chat-App/"
-                 data-github="https://github.com/Lujaina-ali32/Chat-App">
-          <div class="project-thumb">💬</div>
-          <h3> Real-Time Chat App Powered by Firebase</h3>
-          <p class="muted">This project truly helped me understand how real-time databases, authentication, and responsive UI come together to create seamless user experiences</p>
-        </article>
-
-
-
-                         <article class="project-card glass tilt" 
-                 data-title="FITPRO Elite Fitness Website" 
-                 data-desc=" premium fitness website with a modern, powerful & fully responsive design crafted with passion, precision & purpose"
-                 data-tech="HTML • CSS • JS • TailwindCss"
-                 data-live="https://lujaina-ali32.github.io/FitPro/"
-                 data-github="https://github.com/Lujaina-ali32/FitPro">
-          <div class="project-thumb">💪</div>
-          <h3>FITPRO Elite Fitness Website</h3>
-          <p class="muted"> premium fitness website with a modern, powerful & fully responsive design crafted with passion, precision & purpose</p>
-        </article>
-
-
-                 <article class="project-card glass tilt" 
-                 data-title=" SereneMind " 
-                 data-desc=" SereneMind a thoughtfully designed wellness platform focused on delivering a peaceful, elegant, and user-friendly experience for women "
-                 data-tech="HTML • CSS • JS • TailwindCss"
-                 data-live="https://lujaina-ali32.github.io/SereneMind/"
-                 data-github="https://github.com/Lujaina-ali32/SereneMind">
-          <div class="project-thumb"> 🌿</div>
-          <h3> SereneMind </h3>
-          <p class="muted">A space where design supports comfort and clarity </p>
-        </article>
-
-                <article class="project-card glass tilt" 
-                 data-title="Fashion Store Website" 
-                 data-desc=" Front-End Web Project Fashion Store, a modern, fast & fully responsive e-commerce style website built with a premium UI experience! "
-                 data-tech="HTML • CSS • JS • TailwindCss"
-                 data-live="https://lujaina-ali32.github.io/Fashion-Store/"
-                 data-github="https://github.com/Lujaina-ali32/Fashion-Store">
-          <div class="project-thumb"> 🛍️</div>
-          <h3>Fashion Store Website</h3>
-          <p class="muted">Front-End Web Project Fashion Store, a modern, fast & fully responsive e-commerce style website built with a premium UI experience!</p>
-        </article>
-    
-        <article class="project-card glass tilt" 
-                 data-title="Newspaper Clone" 
-                 data-desc="a modern, fully responsive news website designed to deliver an optimal user experience. Technologies Used:HTML5 • CSS3 • JavaScrip"
-                 data-tech="HTML • CSS • JS"
-                 data-live="https://lujaina-ali32.github.io/newspaper/"
-                 data-github="https://github.com/Lujaina-ali32/newspaper">
-          <div class="project-thumb">📰</div>
-          <h3>Newspaper Clone</h3>
-          <p class="muted">fully responsive news website designed</p>
-        </article>
-
-        <article class="project-card glass tilt" 
-                 data-title="Healthcare Website Frontend Project" 
-                 data-desc=" This project helped me enhance my frontend skills, create a smooth and user-friendly experience, and design a clean, professional interface for healthcare services"
-                 data-tech="HTML • CSS • JS • TailwindCss"
-                 data-live="https://lujaina-ali32.github.io/HealNet/"
-                 data-github="https://github.com/Lujaina-ali32/HealNet">
-          <div class="project-thumb">🩺</div>
-          <h3>Healthcare Website Frontend Project</h3>
-          <p class="muted"> This project helped me enhance my frontend skills, create a smooth and user-friendly experience, and design a clean, professional interface for healthcare services</p>
-        </article>
-
-        <article class="project-card glass tilt" 
-                 data-title=" Posy Petal Boutique " 
-                 data-desc="The design focuses on a calm, elegant boutique aesthetic with smooth user interactions and a fully responsive layou."
-                 data-tech="HTML • CSS • JS • TailwindCss"
-                 data-live="https://lujaina-ali32.github.io/Posy-Petal-Boutique/"
-                 data-github="https://github.com/Lujaina-ali32/Posy-Petal-Boutique">
-          <div class="project-thumb">🌸</div>
-          <h3> Posy Petal Boutique </h3>
-          <p class="muted">The design focuses on a calm, elegant boutique aesthetic with smooth user interactions and a fully responsive layou</p>
-        </article>
-
-        <article class="project-card glass tilt" 
-                 data-title="Redline Motors" 
-                 data-desc=" It combines modern UI design, responsive layout, and backend integration using Firebase"
-                 data-tech="HTML • CSS • JS • TailwindCss • Firebase"
-                 data-live="https://lujaina-ali32.github.io/Redline-Motors/"
-                 data-github="https://github.com/Lujaina-ali32/Redline-Motors>">
-          <div class="project-thumb">🚗</div>
-          <h3>Redline Motors</h3>
-          <p class="muted">It combines modern UI design, responsive layout, and backend integration using Firebase</p>
-        </article>
-
-         <article class="project-card glass tilt" 
-                 data-title="Counter-App" 
-                 data-desc=" This project, built using HTML, CSS, and JavaScript, is focused on interactivity, clean design, and responsiveness."
-                 data-tech="HTML • CSS • JS"
-                 data-live="https://lujaina-ali32.github.io/Counter-App/"
-                 data-github="https://github.com/Lujaina-ali32/Counter-App">
-          <div class="project-thumb">🔄️</div>
-          <h3>Counter-App</h3>
-          <p class="muted">Increment, decrement & reset the counter with ease</p>
-        </article>
-
-        <article class="project-card glass tilt" 
-                 data-title="Travel-Website" 
-                 data-desc="Elegant and responsive Navigation Bar for intuitive user flow, Engaging Travel Destination Cards with a visually rich layout."
-                 data-tech="HTML • CSS"
-                 data-live="https://lujaina-ali32.github.io/Travel-Website/"
-                 data-github="https://github.com/Lujaina-ali32/Travel-Website">
-          <div class="project-thumb">✈️</div>
-          <h3>Travel-Website</h3>
-          <p class="muted">Fully Responsive Travel Website</p>
-        </article>
-
-        <article class="project-card glass tilt" 
-                 data-title="Landing Page" 
-                 data-desc="build a UL clone using only HTML and CSS."
-                 data-tech="HTML • CSS"
-                 data-live="https://lujaina-ali32.github.io/SMIT-HACKATHOUN/"
-                 data-github="https://github.com/Lujaina-ali32/SMIT-HACKATHOUN">
-          <div class="project-thumb">📄</div>
-          <h3>Landing Page</h3>
-          <p class="muted">Fully Responsive Design </p>
-        </article>
-
-         <article class="project-card glass tilt" 
-                 data-title="ID-Card-Generator" 
-                 data-desc=" Fill in your details (Name, Roll no, Gender & Course), Get an instant professional-looking ID card ,Try out different courses (Web Dev, AI, Cybersecurity & more) ,Enjoy a clean & responsive design."
-                 data-tech="HTML • CSS • JS"
-                 data-live="https://lujaina-ali32.github.io/ID-Card-Generator/"
-                 data-github="https://github.com/Lujaina-ali32/ID-Card-Generator">
-          <div class="project-thumb">🪪</div>
-          <h3>ID-Card-Generator</h3>
-          <p class="muted">A simple yet fun tool where you can generate your own ID card in seconds </p>
-        </article>
-
- 
-
-
-
-         <article class="project-card glass tilt" 
-                 data-title="Vowel-Checker" 
-                 data-desc="Takes any word or sentence input ,Counts the number of vowels (both upper & lower case), Shows user-friendly error message"
-                 data-tech="HTML • CSS • JS"
-                 data-live="https://lujaina-ali32.github.io/Vowel-Checker/"
-                 data-github="https://github.com/Lujaina-ali32/Vowel-Checker">
-          <div class="project-thumb">✅</div>
-          <h3>Vowel-Checker</h3>
-          <p class="muted"> a clean, minimal Vowel Checke </p>
-        </article>
-
-    
+        <img src="./Gemini_Generated_Image_pvwhsdpvwhsdpvwh.png"
+          class="relative w-[400px] h-[500px] object-cover rounded-3xl 
+                 border border-white/10 shadow-2xl 
+                 transform group-hover:scale-110 group-hover:rotate-1
+                 transition duration-500"/>
       </div>
-    </section>
+    </div>
 
-    <!-- CERTIFICATES -->
-<div class="grid certs-grid">
+    <!-- CONTENT SIDE -->
+    <div class="space-y-6">
 
-  <figure class="certificate-card glass tilt" data-img="./cisco html.jpeg">
-    <img src="./cisco html.jpeg">
-    <figcaption>Cisco Certificate — HTML</figcaption>
-  </figure>
+      <h3 class="text-2xl md:text-3xl font-bold leading-snug">
+        Hi, I'm <span class="text-purple-400">Lujaina</span> 👋
+        <br/>
+        <span class="text-white/80 text-lg font-normal">
+          MERN Stack Developer & Creative Web Builder
+        </span>
+      </h3>
 
-  <figure class="certificate-card glass tilt" data-img="./cisco css.jpeg">
-    <img src="./cisco css.jpeg">
-    <figcaption>Cisco Certificate — CSS</figcaption>
-  </figure>
+      <p class="text-gray-300 leading-relaxed hover:text-white transition duration-300">
+        I specialize in building <span class="text-purple-400">modern web applications</span>
+        that are fast, responsive, and visually powerful.
+        My focus is not just code but creating smooth user experiences that feel premium.
+      </p>
 
-  <figure class="certificate-card glass tilt" data-img="./cisco js.jpeg">
-    <img src="./cisco js.jpeg">
-    <figcaption>Cisco Certificate — JavaScript</figcaption>
-  </figure>
+      <p class="text-gray-300 leading-relaxed hover:text-white transition duration-300">
+        I enjoy turning ideas into real digital products using
+        <span class="text-purple-400">MERN Stack, UI animations, and clean architecture</span>.
+        Every project I build is designed with performance + aesthetics in mind.
+      </p>
 
-  <figure class="certificate-card glass tilt" data-img="./internee.pk.jpeg">
-    <img src="./internee.pk.jpeg">
-    <figcaption>Internship Completion — Internee.pk</figcaption>
-  </figure>
+      <!-- BADGES -->
+      <div class="flex flex-wrap gap-2">
 
-  <figure class="certificate-card glass tilt" data-img="./certificate.jpg">
-    <img src="./certificate.jpg">
-    <figcaption>FemHack 2025 — Saylani Hackathon</figcaption>
-  </figure>
+        <span class="bg-purple-500/20 px-3 py-1 rounded-full text-sm hover:scale-105 transition">
+          💻 MERN Stack
+        </span>
 
-</div>
+        <span class="bg-purple-500/20 px-3 py-1 rounded-full text-sm hover:scale-105 transition">
+          🎨 UI/UX Focus
+        </span>
 
+        <span class="bg-purple-500/20 px-3 py-1 rounded-full text-sm hover:scale-105 transition">
+          ⚡ Performance First
+        </span>
 
-    <!-- CONTACT -->
-    <section id="contact" class="section container reveal">
-      <h2>Contact</h2>
-      <p class="status">🟢 Currently Available for Work</p>
+        <span class="bg-purple-500/20 px-3 py-1 rounded-full text-sm hover:scale-105 transition">
+          🚀 Scalable Systems
+        </span>
 
-      <div class="contact-grid">
-        <form class="contact-form" onsubmit="return false;">
-          <label><input placeholder="Your name" required></label>
-          <label><input type="email" placeholder="Your email" required></label>
-          <label><textarea placeholder="Your message" rows="5" required></textarea></label>
-          <div class="form-actions">
-            <button class="btn primary ripple">Send Message</button>
-            <button type="button" class="btn outline ripple" onclick="scrollToProjects()">See Projects</button>
-          </div>
-          <div class="contact-note muted">I’ll reply as soon as possible — demo form (no server connected).</div>
-        </form>
-
-        <aside class="contact-side">
-          <div class="contact-card glass">
-            <h4>Work With Me</h4>
-            <p class="muted">
-Looking for a reliable frontend developer?  
-Let’s discuss your project and bring your ideas to life.
-</p>
-
-            <div class="socials">
-              <a href="https://github.com/Lujaina-ali32" aria-label="GitHub">🐙 GitHub</a>
-              <a href="https://www.linkedin.com/in/lujaina-ali-962231307?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn">💼 LinkedIn</a>
-            </div>
-          </div>
-        </aside>
       </div>
-    </section>
-  </main>
 
-<!-- PROJECT MODAL -->
-<div id="projectModal" class="modal" aria-hidden="true">
-  <div class="modal-panel glass">
-    <button class="modal-close" aria-label="Close">&times;</button>
-    <h3 id="modalTitle"></h3>
-    <p id="modalTech" class="muted"></p>
-    <p id="modalDesc"></p>
-    <div class="modal-actions">
-      <a id="modalLive" class="btn primary ripple" target="_blank" rel="noopener">Live Demo</a>
-      <a id="modalGit" class="btn outline ripple" target="_blank" rel="noopener">View Code</a>
+      <!-- HIGHLIGHT BOXES -->
+      <div class="grid grid-cols-2 gap-4 mt-6">
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4
+                    hover:scale-105 hover:shadow-purple-500/40 transition duration-300">
+          <h4 class="text-purple-400 font-bold">💡 Problem Solver</h4>
+          <p class="text-xs text-gray-400 mt-1">Turning ideas into real apps</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4
+                    hover:scale-105 hover:shadow-purple-500/40 transition duration-300">
+          <h4 class="text-purple-400 font-bold">⚙️ Clean Code</h4>
+          <p class="text-xs text-gray-400 mt-1">Maintainable & scalable structure</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4
+                    hover:scale-105 hover:shadow-purple-500/40 transition duration-300">
+          <h4 class="text-purple-400 font-bold">🎯 Focused UI</h4>
+          <p class="text-xs text-gray-400 mt-1">Modern & user-centered design</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-xl p-4
+                    hover:scale-105 hover:shadow-purple-500/40 transition duration-300">
+          <h4 class="text-purple-400 font-bold">🚀 Fast Delivery</h4>
+          <p class="text-xs text-gray-400 mt-1">Optimized & efficient workflow</p>
+        </div>
+
+      </div>
+
+      <!-- CTA BUTTONS -->
+      <div class="mt-6 flex gap-4">
+
+        <a href="#projects"
+           class="bg-purple-500 px-6 py-2 rounded-full shadow-lg
+                  hover:scale-110 hover:shadow-purple-500/50
+                  transition duration-300">
+          View Projects
+        </a>
+
+        <a href="#contact"
+           class="border border-purple-500 px-6 py-2 rounded-full
+                  hover:bg-purple-500/20 hover:scale-105
+                  transition duration-300">
+          Contact Me
+        </a>
+
+      </div>
+
     </div>
   </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="py-24 px-6 bg-[#05010a] will-change-transform">
+
+  <h2 class="text-3xl md:text-4xl text-center font-bold text-purple-400 mb-14">
+    ⚡ Services (Premium Solutions)
+  </h2>
+
+  <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+
+    <!-- CARD -->
+    <div class="group relative p-[1px] rounded-2xl overflow-hidden">
+
+      <!-- glow border -->
+      <div class="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 opacity-30 blur-md group-hover:opacity-70 transition"></div>
+
+      <div class="relative bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md
+                  transition duration-300 transform group-hover:-translate-y-2 group-hover:scale-[1.03]">
+
+        <div class="text-2xl mb-3 group-hover:animate-bounce">⚡</div>
+        <h3 class="text-xl font-bold">Full Stack MERN Development</h3>
+        <p class="text-gray-400 mt-2">Scalable web apps with React, Node, Express & MongoDB.</p>
+
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="group relative p-[1px] rounded-2xl overflow-hidden">
+
+      <div class="absolute inset-0 bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500 opacity-30 blur-md group-hover:opacity-70 transition"></div>
+
+      <div class="relative bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md
+                  transition duration-300 transform group-hover:-translate-y-2 group-hover:scale-[1.03]">
+
+        <div class="text-2xl mb-3 group-hover:animate-bounce">🎨</div>
+        <h3 class="text-xl font-bold">UI/UX Modern Design</h3>
+        <p class="text-gray-400 mt-2">Clean, modern and user-focused interface designs.</p>
+
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="group relative p-[1px] rounded-2xl overflow-hidden">
+
+      <div class="absolute inset-0 bg-gradient-to-r from-purple-500 via-green-500 to-purple-500 opacity-30 blur-md group-hover:opacity-70 transition"></div>
+
+      <div class="relative bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md
+                  transition duration-300 transform group-hover:-translate-y-2 group-hover:scale-[1.03]">
+
+        <div class="text-2xl mb-3 group-hover:animate-bounce">🚀</div>
+        <h3 class="text-xl font-bold">API Development</h3>
+        <p class="text-gray-400 mt-2">Secure REST APIs with authentication & scalability.</p>
+
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="group relative p-[1px] rounded-2xl overflow-hidden">
+
+      <div class="absolute inset-0 bg-gradient-to-r from-purple-500 via-yellow-500 to-purple-500 opacity-30 blur-md group-hover:opacity-70 transition"></div>
+
+      <div class="relative bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md
+                  transition duration-300 transform group-hover:-translate-y-2 group-hover:scale-[1.03]">
+
+        <div class="text-2xl mb-3 group-hover:animate-bounce">📱</div>
+        <h3 class="text-xl font-bold">Responsive Web Apps</h3>
+        <p class="text-gray-400 mt-2">Fully mobile-friendly and cross-device optimized apps.</p>
+
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="group relative p-[1px] rounded-2xl overflow-hidden">
+
+      <div class="absolute inset-0 bg-gradient-to-r from-purple-500 via-red-500 to-purple-500 opacity-30 blur-md group-hover:opacity-70 transition"></div>
+
+      <div class="relative bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md
+                  transition duration-300 transform group-hover:-translate-y-2 group-hover:scale-[1.03]">
+
+        <div class="text-2xl mb-3 group-hover:animate-bounce">🔐</div>
+        <h3 class="text-xl font-bold">Authentication Systems</h3>
+        <p class="text-gray-400 mt-2">JWT, OAuth and secure login/signup systems.</p>
+
+      </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="group relative p-[1px] rounded-2xl overflow-hidden">
+
+      <div class="absolute inset-0 bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500 opacity-30 blur-md group-hover:opacity-70 transition"></div>
+
+      <div class="relative bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md
+                  transition duration-300 transform group-hover:-translate-y-2 group-hover:scale-[1.03]">
+
+        <div class="text-2xl mb-3 group-hover:animate-bounce">⚙️</div>
+        <h3 class="text-xl font-bold">Admin Dashboards</h3>
+        <p class="text-gray-400 mt-2">Powerful dashboards for full business control.</p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="py-24 px-6 bg-[#05010a] will-change-transform">
+  
+  <h2 class="text-center text-4xl font-bold text-purple-400 mb-14">
+    ⚡ My Skills & Expertise
+  </h2>
+
+  <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+
+    <!-- CARD -->
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md hover:scale-105 transition duration-300 shadow-lg hover:shadow-purple-500/30">
+
+      <h3 class="text-lg font-bold">HTML</h3>
+
+      <div class="w-full h-2 bg-gray-800 rounded-full mt-3 overflow-hidden">
+        <div class="h-full bg-purple-500 rounded-full" style="width:95%"></div>
+      </div>
+
+      <p class="text-sm text-gray-400 mt-2">95% Mastery</p>
+    </div>
+
+    <!-- CARD -->
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md hover:scale-105 transition duration-300 shadow-lg hover:shadow-purple-500/30">
+
+      <h3 class="text-lg font-bold">CSS / Tailwind</h3>
+
+      <div class="w-full h-2 bg-gray-800 rounded-full mt-3 overflow-hidden">
+        <div class="h-full bg-purple-500 rounded-full" style="width:92%"></div>
+      </div>
+
+      <p class="text-sm text-gray-400 mt-2">92% Mastery</p>
+    </div>
+
+    <!-- CARD -->
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md hover:scale-105 transition duration-300 shadow-lg hover:shadow-purple-500/30">
+
+      <h3 class="text-lg font-bold">JavaScript</h3>
+
+      <div class="w-full h-2 bg-gray-800 rounded-full mt-3 overflow-hidden">
+        <div class="h-full bg-purple-500 rounded-full" style="width:88%"></div>
+      </div>
+
+      <p class="text-sm text-gray-400 mt-2">88% Mastery</p>
+    </div>
+
+    <!-- CARD -->
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md hover:scale-105 transition duration-300 shadow-lg hover:shadow-purple-500/30">
+
+      <h3 class="text-lg font-bold">React</h3>
+
+      <div class="w-full h-2 bg-gray-800 rounded-full mt-3 overflow-hidden">
+        <div class="h-full bg-purple-500 rounded-full" style="width:85%"></div>
+      </div>
+
+      <p class="text-sm text-gray-400 mt-2">85% Mastery</p>
+    </div>
+
+    <!-- CARD -->
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md hover:scale-105 transition duration-300 shadow-lg hover:shadow-purple-500/30">
+
+      <h3 class="text-lg font-bold">Node / Express</h3>
+
+      <div class="w-full h-2 bg-gray-800 rounded-full mt-3 overflow-hidden">
+        <div class="h-full bg-purple-500 rounded-full" style="width:80%"></div>
+      </div>
+
+      <p class="text-sm text-gray-400 mt-2">80% Mastery</p>
+    </div>
+
+    <!-- CARD -->
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md hover:scale-105 transition duration-300 shadow-lg hover:shadow-purple-500/30">
+
+      <h3 class="text-lg font-bold">MongoDB</h3>
+
+      <div class="w-full h-2 bg-gray-800 rounded-full mt-3 overflow-hidden">
+        <div class="h-full bg-purple-500 rounded-full" style="width:75%"></div>
+      </div>
+
+      <p class="text-sm text-gray-400 mt-2">75% Mastery</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-20 px-6 will-change-transform">
+  <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-purple-400">
+    🚀 Projects (Hover to Reveal Live Demo)
+  </h2>
+
+  <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+     <!-- CARD 1-->
+    <div class="project-card">
+
+      <div class="card-inner">
+
+        <!-- FRONT -->
+        <div class="card-front glass p-4">
+          <img src="./Gemini_Generated_Image_icy11licy11licy1(1).png"
+               class="w-full h-50 object-cover rounded-xl"/>
+
+          <h3 class="mt-4 text-xl font-bold">PinkBlush Salon</h3>
+          <p class="text-gray-300 text-sm">Booking system + Search Filter</p>
+
+          <div class="mt-3 flex gap-2 flex-wrap">
+            <span class="tag">React</span>
+            <span class="tag">TailwindCSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+
+        <!-- BACK -->
+        <div class="card-back glass p-6 text-center">
+          <h3 class="text-xl font-bold text-purple-400">PinkBlush Salon</h3>
+<p class="text-gray-300 mt-2">
+  A premium beauty platform built with React, delivering a smooth and elegant user experience.
+</p>
+
+          <div class="mt-5 flex gap-3 justify-center">
+            <a href="https://pink-blush-salon.vercel.app/" class="btn">Live Demo</a>
+            <a href="https://github.com/Lujaina-ali32/PinkBlush-Salon" class="btn">GitHub</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- CARD 2-->
+    <div class="project-card">
+
+      <div class="card-inner">
+
+        <!-- FRONT -->
+        <div class="card-front glass p-4">
+          <img src="./Gemini_Generated_Image_2ac1nx2ac1nx2ac1(1).png"
+               class="w-full h-40 object-cover rounded-xl"/>
+
+          <h3 class="mt-4 text-xl font-bold">Fashion Store</h3>
+          <p class="text-gray-300 text-sm"> fast & fully responsive e-commerce style website</p>
+
+          <div class="mt-3 flex gap-2 flex-wrap">
+            <span class="tag">React</span>
+            <span class="tag">TailwindCSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+
+        <!-- BACK -->
+        <div class="card-back glass p-6 text-center">
+          <h3 class="text-xl font-bold text-purple-400">Fashion Store</h3>
+<p class="text-gray-300 mt-2">
+  Fast, fully responsive e-commerce website with a clean, modern UI and smooth user experience.
+</p>
+
+          <div class="mt-5 flex gap-3 justify-center">
+            <a href="https://lujaina-ali32.github.io/Fashion-Store/" class="btn">Live Demo</a>
+            <a href="https://github.com/Lujaina-ali32/Fashion-Store" class="btn">GitHub</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="project-card">
+      <div class="card-inner">
+
+        <div class="card-front glass p-4">
+          <img src="./Gemini_Generated_Image_4pndgf4pndgf4pnd(1).png"
+               class="w-full h-40 object-cover rounded-xl"/>
+
+          <h3 class="mt-4 text-xl font-bold">FITPRO</h3>
+          <p class="text-gray-300 text-sm">FITPRO Elite Fitness Website </p>
+
+          <div class="mt-3 flex gap-2 flex-wrap">
+            <span class="tag">React</span>
+            <span class="tag">TailwindCSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+
+        <div class="card-back glass p-6 text-center">
+          <h3 class="text-xl font-bold text-purple-400">FITPRO</h3>
+<p class="text-gray-300 mt-2">
+  Fully responsive gym UI with BMI calculator, flip cards, testimonials, FAQ & smooth performance.
+</p>
+
+          <div class="mt-5 flex gap-3 justify-center">
+            <a href="https://lujaina-ali32.github.io/FitPro/" class="btn">Live Demo</a>
+            <a href="#" class="btn">GitHub</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VIEW MORE PROJECTS CTA -->
+<div class="mt-14 text-center">
+
+  <h3 class="text-xl md:text-2xl font-bold text-purple-300 mb-3">
+    🚀 More Projects Available
+  </h3>
+
+  <p class="text-gray-400 mb-6">
+    I have built multiple real-world projects. Explore more on GitHub or connect on LinkedIn.
+  </p>
+
+  <div class="flex flex-col md:flex-row justify-center gap-4">
+
+    <!-- GITHUB -->
+    <a href="https://github.com/Lujaina-ali32"
+       target="_blank"
+       class="btn">
+      💻 View GitHub Projects
+    </a>
+
+    <!-- LINKEDIN -->
+    <a href="https://www.linkedin.com/in/lujaina-ali-962231307?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+       target="_blank"
+       class="btn border border-purple-500 bg-transparent">
+      🔗 Connect on LinkedIn
+    </a>
+
+  </div>
+
+</div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="cert" class="py-16 text-white relative will-change-transform">
+
+  <!-- ⭐ BACKGROUND (same stars assume already applied on body or parent) -->
+  <div class="absolute inset-0 -z-10"></div>
+
+  <h2 class="text-center text-4xl font-bold mb-12 text-purple-400">
+    Certificates
+  </h2>
+
+  <!-- WRAPPER -->
+  <div class="max-w-6xl mx-auto px-4">
+
+    <!-- FLEX LAYOUT (FIXED ALIGNMENT) -->
+    <div class="flex flex-wrap justify-center gap-8">
+
+      <!-- CARD -->
+      <div class="w-[280px] group relative rounded-xl overflow-hidden bg-white/5 shadow-lg
+                  transition-all duration-500 hover:-translate-y-2 hover:shadow-purple-500/40">
+
+        <div class="absolute inset-0 rounded-xl border border-purple-500/20 group-hover:border-purple-400 transition"></div>
+
+        <div class="overflow-hidden">
+          <img src="certificate.jpg"
+            class="w-full h-48 object-cover transition duration-500 group-hover:scale-110">
+        </div>
+
+        <div class="p-4 text-center">
+          <h3 class="text-purple-300 font-semibold">Hackathon</h3>
+          <p class="text-gray-300 text-sm">Femhack 2025</p>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="w-[280px] group relative rounded-xl overflow-hidden bg-white/5 shadow-lg
+                  transition-all duration-500 hover:-translate-y-2 hover:shadow-purple-500/40">
+
+        <div class="absolute inset-0 rounded-xl border border-purple-500/20 group-hover:border-purple-400 transition"></div>
+
+        <div class="overflow-hidden">
+          <img src="./cisco html.jpeg"
+            class="w-full h-48 object-cover transition duration-500 group-hover:scale-110">
+        </div>
+
+        <div class="p-4 text-center">
+          <h3 class="text-purple-300 font-semibold">HTML</h3>
+          <p class="text-gray-300 text-sm">Cisco Networking Academy Program</p>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="w-[280px] group relative rounded-xl overflow-hidden bg-white/5 shadow-lg
+                  transition-all duration-500 hover:-translate-y-2 hover:shadow-purple-500/40">
+
+        <div class="absolute inset-0 rounded-xl border border-purple-500/20 group-hover:border-purple-400 transition"></div>
+
+        <div class="overflow-hidden">
+          <img src="./internee.pk.jpeg"
+            class="w-full h-48 object-cover transition duration-500 group-hover:scale-110">
+        </div>
+
+        <div class="p-4 text-center">
+          <h3 class="text-purple-300 font-semibold">Frontend Intership</h3>
+          <p class="text-gray-300 text-sm">At internee.pk</p>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="w-[280px] group relative rounded-xl overflow-hidden bg-white/5 shadow-lg
+                  transition-all duration-500 hover:-translate-y-2 hover:shadow-purple-500/40">
+
+        <div class="absolute inset-0 rounded-xl border border-purple-500/20 group-hover:border-purple-400 transition"></div>
+
+        <div class="overflow-hidden">
+          <img src="./cisco css.jpeg"
+            class="w-full h-48 object-cover transition duration-500 group-hover:scale-110">
+        </div>
+
+        <div class="p-4 text-center">
+          <h3 class="text-purple-300 font-semibold">CSS</h3>
+          <p class="text-gray-300 text-sm">Cisco Networking Academy Program</p>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="w-[280px] group relative rounded-xl overflow-hidden bg-white/5 shadow-lg
+                  transition-all duration-500 hover:-translate-y-2 hover:shadow-purple-500/40">
+
+        <div class="absolute inset-0 rounded-xl border border-purple-500/20 group-hover:border-purple-400 transition"></div>
+
+        <div class="overflow-hidden">
+          <img src="./cisco js.jpeg"
+            class="w-full h-48 object-cover transition duration-500 group-hover:scale-110">
+        </div>
+
+        <div class="p-4 text-center">
+          <h3 class="text-purple-300 font-semibold">JavaScript</h3>
+          <p class="text-gray-300 text-sm">Cisco Networking Academy Program</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-20 px-6 will-change-transform">
+  <h2 class="text-center text-3xl md:text-4xl font-bold text-purple-400 mb-12">
+    Frequently Asked Questions
+  </h2>
+
+  <div class="max-w-3xl mx-auto space-y-4">
+
+    <!-- ITEM -->
+    <div class="faq-item bg-white/5 border border-white/10 rounded-xl p-5 cursor-pointer transition-all duration-300">
+
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold">What services do you offer?</h3>
+        <span class="icon text-purple-400 text-2xl transition-transform duration-300">+</span>
+      </div>
+
+      <p class="faq-answer mt-3 text-gray-300 max-h-0 overflow-hidden opacity-0 transition-all duration-500">
+        I offer Full Stack MERN development, UI/UX design, API development and scalable web solutions.
+      </p>
+    </div>
+
+    <!-- ITEM -->
+    <div class="faq-item bg-white/5 border border-white/10 rounded-xl p-5 cursor-pointer transition-all duration-300">
+
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold">Do you build full-stack apps?</h3>
+        <span class="icon text-purple-400 text-2xl transition-transform duration-300">+</span>
+      </div>
+
+      <p class="faq-answer mt-3 text-gray-300 max-h-0 overflow-hidden opacity-0 transition-all duration-500">
+        Yes, I build complete MERN stack applications with frontend, backend and database integration.
+      </p>
+    </div>
+
+    <!-- ITEM -->
+    <div class="faq-item bg-white/5 border border-white/10 rounded-xl p-5 cursor-pointer transition-all duration-300">
+
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold">Can I hire you for freelance work?</h3>
+        <span class="icon text-purple-400 text-2xl transition-transform duration-300">+</span>
+      </div>
+
+      <p class="faq-answer mt-3 text-gray-300 max-h-0 overflow-hidden opacity-0 transition-all duration-500">
+        Yes, I am available for freelance and remote projects worldwide.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-20 px-6 text-white will-change-transform">
+
+<h2 class="text-4xl text-center font-bold mb-12 text-purple-400">
+Let’s Work Together 🚀
+</h2>
+
+<div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+
+<!-- LEFT SIDE IMAGE -->
+<div class="flex justify-center">
+  <img 
+    src="./Gemini_Generated_Image_8jw7yi8jw7yi8jw7(2).png"
+    class="w-72 h-72 object-cover rounded-2xl border-2 border-purple-500 shadow-[0_0_40px_#a855f7]"
+  />
 </div>
 
+<!-- CONTACT FORM -->
+<div class="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-2xl shadow-lg">
 
-<div id="lightbox" class="modal" aria-hidden="true">
-  <div class="modal-panel">
-    <button class="modal-close">&times;</button>
-    <img id="lightboxImg" src="" alt="certificate" style="max-width:100%;border-radius:8px;" >
+  <h3 class="text-2xl mb-6 text-center text-white">
+    Contact Me
+  </h3>
+
+  <div class="space-y-4">
+
+    <input 
+      type="text"
+      placeholder="Your Name"
+      class="w-full p-3 rounded-lg bg-black/40 border border-white/10 text-white outline-none focus:border-purple-500 transition"
+    />
+
+    <input 
+      type="email"
+      placeholder="Your Email"
+      class="w-full p-3 rounded-lg bg-black/40 border border-white/10 text-white outline-none focus:border-purple-500 transition"
+    />
+
+    <textarea 
+      placeholder="Your Message"
+      rows="4"
+      class="w-full p-3 rounded-lg bg-black/40 border border-white/10 text-white outline-none focus:border-purple-500 transition"
+    ></textarea>
+
+    <button 
+      class="w-full py-3 rounded-lg bg-purple-600 hover:bg-purple-500 transition font-semibold shadow-[0_0_20px_#a855f7]"
+      onclick="sendMsg()"
+    >
+      Send Message 🚀
+    </button>
+
   </div>
 </div>
 
-<footer class="footer">
-  <div class="container">
-    <small>© 2025 Lujaina • Built with ❤ </small>
+</div>
+
+</section>
+
+<!-- AI CHATBOX -->
+<div id="chatToggle"
+     class="fixed bottom-6 right-6 bg-purple-600 w-14 h-14 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg hover:scale-110 transition z-50">
+  💬
+</div>
+
+<div id="chatBox"
+     class="fixed bottom-24 right-6 w-80 max-w-[90%] bg-[#0b0614]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl hidden flex-col overflow-hidden z-50">
+
+  <!-- HEADER -->
+  <div class="bg-purple-600 px-4 py-3 flex justify-between items-center">
+    <h3 class="font-semibold text-sm">AI Assistant</h3>
+    <button onclick="toggleChat()">✕</button>
   </div>
+
+  <!-- MESSAGES -->
+  <div id="chatMessages"
+       class="h-72 overflow-y-auto p-3 space-y-2 text-sm">
+    <div class="bg-white/10 p-2 rounded-lg">
+      Hi 👋 Ask me anything about this portfolio!
+    </div>
+  </div>
+
+  <!-- INPUT -->
+  <div class="flex border-t border-white/10">
+    <input id="chatInput"
+           type="text"
+           placeholder="Type a message..."
+           class="flex-1 p-2 bg-transparent outline-none text-sm"/>
+    <button onclick="sendChat()"
+            class="px-4 bg-purple-600 hover:bg-purple-500">
+      ➤
+    </button>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-black text-gray-300 border-t border-purple-500/20 mt-auto will-change-transform">
+
+  <!-- TOP GLOW LINE -->
+  <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-purple-500 to-transparent"></div>
+
+  <div class="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+    <!-- BRAND -->
+    <div>
+      <h2 class="text-2xl font-bold text-purple-400 mb-4">Lujaina Ali</h2>
+      <p class="text-sm text-gray-400 leading-relaxed">
+        MERN Stack Developer focused on building modern, responsive and interactive web applications.
+      </p>
+
+      <div class="mt-5 flex gap-2">
+        <span class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
+        <span class="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-150"></span>
+        <span class="w-2 h-2 bg-purple-300 rounded-full animate-pulse delay-300"></span>
+      </div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div>
+      <h3 class="text-white font-semibold mb-4">Quick Links</h3>
+
+      <ul class="space-y-2 text-sm">
+        <li><a href="#home" class="hover:text-purple-400 transition hover:translate-x-1 inline-block">Home</a></li>
+        <li><a href="#about" class="hover:text-purple-400 transition hover:translate-x-1 inline-block">About</a></li>
+        <li><a href="#projects" class="hover:text-purple-400 transition hover:translate-x-1 inline-block">Projects</a></li>
+        <li><a href="#cert" class="hover:text-purple-400 transition hover:translate-x-1 inline-block">Certificates</a></li>
+        <li><a href="#contact" class="hover:text-purple-400 transition hover:translate-x-1 inline-block">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- CONTACT -->
+    <div>
+      <h3 class="text-white font-semibold mb-4">Contact</h3>
+
+      <div class="space-y-3 text-sm">
+
+        <a href="mailto:lujainaali10@gmail.com"
+           class="flex items-center gap-2 hover:text-purple-400 transition">
+          📧 <span class="break-all">lujainaali10@gmail.com</span>
+        </a>
+
+        <div class="flex items-center gap-2">
+          📍 <span>Karachi, Pakistan</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          📱 <span>Available for Freelance</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SOCIAL MEDIA -->
+    <!-- SOCIAL MEDIA -->
+<div>
+  <h3 class="text-white font-semibold mb-4">Follow Me</h3>
+
+  <div class="flex gap-3 flex-wrap items-center">
+
+    <!-- Instagram -->
+    <a href="#" class="p-2 rounded-full bg-white/5 hover:bg-pink-500/20 transition hover:scale-110">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png"
+           class="w-7 h-7"/>
+    </a>
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/share/1HBresxcyF/" class="p-2 rounded-full bg-white/5 hover:bg-blue-500/20 transition hover:scale-110">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png"
+           class="w-7 h-7"/>
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/in/lujaina-ali-962231307?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank"
+       class="p-2 rounded-full bg-white/5 hover:bg-blue-400/20 transition hover:scale-110">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png"
+           class="w-7 h-7"/>
+    </a>
+
+    <!-- GitHub -->
+    <a href="https://github.com/Lujaina-ali32" target="_blank"
+       class="p-2 rounded-full bg-white/5 hover:bg-white/10 transition hover:scale-110">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/github.png"
+           class="w-7 h-7"/>
+    </a>
+
+  </div>
+
+  <!-- EMAIL SECTION -->
+  <div class="mt-5 p-3 rounded-lg bg-white/5 border border-white/10 hover:border-purple-500 transition">
+
+    <p class="text-xs text-gray-400">Email Me</p>
+
+    <a href="mailto:lujainaali10@gmail.com"
+       class="text-sm text-purple-300 font-medium hover:text-purple-400 transition break-all">
+      📧 lujainaali10@gmail.com
+    </a>
+
+  </div>
+</div>
+
+
+
+    </div>
+
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="border-t border-white/10 py-5 text-center text-sm text-gray-500">
+    © 2026 <span class="text-purple-400 font-semibold">Lujaina Ali</span> | MERN Stack Developer
+  </div>
+
 </footer>
 
-<script src="script.js"></script>
+<script>
+// GSAP animation
+
+gsap.registerPlugin(ScrollTrigger);
+
+// clean section animation (NO OVERLAP FIX)
+gsap.utils.toArray("section").forEach((sec, i) => {
+
+  gsap.fromTo(sec,
+    {
+      opacity: 0,
+      y: 100,
+      scale: 0.98
+    },
+    {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 1,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: sec,
+        start: "top 80%",
+        end: "top 50%",
+        toggleActions: "play none none reverse"
+      }
+    }
+  );
+
+});
+
+gsap.from(".hero h1",{
+  y:50,
+  opacity:0,
+  duration:1,
+  delay:0.2
+});
+
+gsap.from(".hero p",{
+  y:30,
+  opacity:0,
+  duration:1,
+  delay:0.4
+});
+
+gsap.from(".hero img",{
+  scale:0.5,
+  opacity:0,
+  duration:1,
+  delay:0.3
+});
+
+
+// STARS (UNCHANGED)
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let stars=[];
+for(let i=0;i<70;i++){
+stars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight});
+}
+
+function draw(){
+ctx.clearRect(0,0,innerWidth,innerHeight);
+ctx.fillStyle="#a855f7";
+
+stars.forEach(s=>{
+ctx.beginPath();
+ctx.arc(s.x,s.y,2,0,Math.PI*2);
+ctx.fill();
+s.x+=0.5;
+if(s.x>innerWidth)s.x=0;
+});
+
+requestAnimationFrame(draw);
+}
+draw();
+
+function sendMsg(){
+  Swal.fire({
+    title: "Message Sent 🚀",
+    text: "I will get back to you soon!",
+    icon: "success",
+    confirmButtonColor: "#a855f7"
+  });
+}
+
+const items = document.querySelectorAll(".faq-item");
+
+items.forEach(item => {
+  item.addEventListener("click", () => {
+
+    // close all others (FEATURE 1)
+    items.forEach(i => {
+      if(i !== item){
+        i.querySelector(".faq-answer").style.maxHeight = "0px";
+        i.querySelector(".faq-answer").style.opacity = "0";
+        i.querySelector(".icon").textContent = "+";
+        i.classList.remove("active");
+      }
+    });
+
+    let answer = item.querySelector(".faq-answer");
+    let icon = item.querySelector(".icon");
+
+    // toggle
+    if(answer.style.maxHeight && answer.style.maxHeight !== "0px"){
+      answer.style.maxHeight = "0px";
+      answer.style.opacity = "0";
+      icon.textContent = "+";
+      item.classList.remove("active");
+    } else {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+      answer.style.opacity = "1";
+      icon.textContent = "×";
+      item.classList.add("active");
+    }
+
+  });
+});
+
+function toggleChat(){
+  const box = document.getElementById("chatBox");
+  box.classList.toggle("hidden");
+}
+
+document.getElementById("chatToggle").onclick = toggleChat;
+
+// ENTER KEY SUPPORT
+document.getElementById("chatInput").addEventListener("keypress", function(e){
+  if(e.key === "Enter"){
+    sendChat();
+  }
+});
+
+function sendChat(){
+  let input = document.getElementById("chatInput");
+  let msg = input.value.trim();
+  if(!msg) return;
+
+  const chat = document.getElementById("chatMessages");
+
+  // USER MESSAGE
+  chat.innerHTML += `
+    <div class="text-right">
+      <span class="bg-purple-600 px-3 py-1 rounded-lg inline-block">${msg}</span>
+    </div>
+  `;
+
+  input.value = "";
+
+  // TYPING EFFECT
+  chat.innerHTML += `
+    <div id="typing" class="text-left text-gray-400 text-xs">
+      AI is typing...
+    </div>
+  `;
+
+  chat.scrollTop = chat.scrollHeight;
+
+  setTimeout(()=>{
+    document.getElementById("typing").remove();
+
+    let reply = getReply(msg.toLowerCase());
+
+    chat.innerHTML += `
+      <div class="text-left">
+        <span class="bg-white/10 px-3 py-1 rounded-lg inline-block">${reply}</span>
+      </div>
+    `;
+
+    chat.scrollTop = chat.scrollHeight;
+
+  }, 800);
+}
+
+
+// 🧠 SMART AI REPLY SYSTEM
+function getReply(msg){
+
+  // 👋 GREETINGS
+  if(msg.includes("hi") || msg.includes("hello") || msg.includes("salam")){
+    let hour = new Date().getHours();
+
+    if(hour < 12) return "Good Morning ☀️ How can I help you today?";
+    if(hour < 18) return "Good Afternoon 🌤️ What would you like to know?";
+    return "Good Evening 🌙 How can I assist you?";
+  }
+
+  // 💻 ABOUT YOU
+  if(msg.includes("who are you") || msg.includes("about")){
+    return "I'm Lujaina's AI assistant 🤖. She is a MERN Stack Developer building modern web apps.";
+  }
+
+  // 🚀 SKILLS
+  if(msg.includes("skills") || msg.includes("tech")){
+    return "She works with MERN Stack, React, Tailwind CSS, and builds modern UI/UX experiences.";
+  }
+
+  // 📂 PROJECTS
+  if(msg.includes("project")){
+    return "Check out the Projects section 🚀 — multiple real-world apps are showcased there.";
+  }
+
+  // 💰 PRICE
+  if(msg.includes("price") || msg.includes("cost") || msg.includes("rate")){
+    return "Pricing depends on your project requirements. You can contact her for a custom quote 💬";
+  }
+
+  // 📞 CONTACT
+  if(msg.includes("contact") || msg.includes("hire")){
+    return "You can hire her via the contact form below 🚀 or connect on LinkedIn.";
+  }
+
+  // ⚡ SERVICES
+  if(msg.includes("service")){
+    return "She offers full-stack development, UI/UX design, APIs, and responsive web apps.";
+  }
+
+  // 😂 SMALL TALK
+  if(msg.includes("how are you")){
+    return "I'm just code 😄 but working perfectly! How can I help you?";
+  }
+
+  // 🎯 DEFAULT
+  return "That's interesting 🤔 You can explore the portfolio or ask about skills, projects, or services!";
+}
+
+window.addEventListener("scroll", () => {
+  let scrollTop = document.documentElement.scrollTop;
+  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  let progress = (scrollTop / height) * 100;
+  document.getElementById("progressBar").style.width = progress + "%";
+});
+
+
+document.querySelectorAll(".btn, a").forEach(btn => {
+  btn.addEventListener("mousemove", (e) => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width/2;
+    const y = e.clientY - rect.top - rect.height/2;
+
+    btn.style.transform = `translate(${x*0.2}px, ${y*0.2}px) scale(1.05)`;
+  });
+
+  btn.addEventListener("mouseleave", () => {
+    btn.style.transform = "translate(0,0) scale(1)";
+  });
+});
+</script>
+
 </body>
 </html>
